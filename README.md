@@ -6,4 +6,4 @@ Apps made by Rudra, works everywhere as long as you have a Java 21+ JVM installe
 
 ## What I Have
 
-So far, [here's what I have](/So-Far-Apps.txt)
+So far, [here's what I have](/So-Far-Apps.md)
