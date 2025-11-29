@@ -1,0 +1,29 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'org.json:json:20230227'
+}
+
+application {
+    mainClass.set('com.rudra.converter.Main')
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.rudra.converter.Main'
+        )
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.filter { it.exists() }.collect { zipTree(it) }
+    }
+}
+
