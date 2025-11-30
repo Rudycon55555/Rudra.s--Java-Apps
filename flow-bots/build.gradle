@@ -1,0 +1,46 @@
+// build.gradle
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.flowbots'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.formdev:flatlaf:3.4.1' // modern Swing L&F
+    // Optional: simple HTTP client (Java 11+ has HttpClient)
+    // Optional: JSON (we'll keep minimal and manual for now)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+}
+
+application {
+    mainClass = 'com.flowbots.app.Main'
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+tasks.shadowJar {
+    archiveBaseName.set('flow-bots')
+    archiveClassifier.set('')
+    archiveVersion.set(version)
+    mergeServiceFiles()
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass
+        )
+    }
+}
